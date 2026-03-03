@@ -12,26 +12,8 @@ func buildResidualGraph(colony *Colony) (map[string][]string, map[[2]string]int)
 	addEdge := func(u, v string, c int) {
 		key := [2]string{u, v}
 		cap[key] += c
-		found := false
-		for _, n := range graph[u] {
-			if n == v {
-				found = true
-				break
-			}
-		}
-		if !found {
-			graph[u] = append(graph[u], v)
-		}
-		found = false
-		for _, n := range graph[v] {
-			if n == u {
-				found = true
-				break
-			}
-		}
-		if !found {
-			graph[v] = append(graph[v], u)
-		}
+		graph[u] = append(graph[u], v)
+		graph[v] = append(graph[v], u)
 	}
 
 	// Node splitting: each room becomes room_in -> room_out
